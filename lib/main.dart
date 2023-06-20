@@ -1,50 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: MyField(),
+    home: MyApp(),
   ));
 }
 
-class MyField extends StatefulWidget {
-  const MyField({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
   @override
-  State<MyField> createState() => _MyFieldState();
+  State<MyApp> createState() => _MyAppState();
 }
 
-class _MyFieldState extends State<MyField> {
-  bool _showPassword = false;
-  Icon icon = Icon(Icons.visibility);
+class _MyAppState extends State<MyApp> {
+  double slider = 0.2;
+  bool value = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: [
-          TextFormField(
-            obscureText: !this._showPassword,
-            decoration: InputDecoration(
-                prefixIcon: Icon(Icons.security),
-                suffixIcon: IconButton(
-                    color: _showPassword ? Colors.blue : Colors.grey,
-                    onPressed: () {
-                      _showPassword
-                          ? icon = Icon(Icons.visibility)
-                          : icon = Icon(Icons.visibility_off);
-                      setState(() {
-                        this._showPassword = !this._showPassword;
-                      });
-                    },
-                    icon: icon),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10))),
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp('[0-9 ,a-z]'))
-            ],
-          )
-        ],
-      ),
+      body: ListView(children: [
+        Slider(
+          label:'$slider',
+          max: 90,
+          divisions: 3,
+            value: slider,
+            onChanged: (val) {
+              setState(() {
+                slider = val;
+              });
+            }),
+      ]),
     );
   }
 }
