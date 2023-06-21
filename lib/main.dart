@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 
 void main() {
   runApp(MaterialApp(
@@ -14,23 +15,70 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  double slider = 0.2;
-  bool value = true;
+  double sigmaX = 0, sigmaY = 0;
+  double rotZ = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(children: [
-        Slider(
-          label:'$slider',
-          max: 90,
-          divisions: 3,
-            value: slider,
-            onChanged: (val) {
-              setState(() {
-                slider = val;
-              });
-            }),
+        ImageFiltered(
+            child: Image.asset('images/friends.jpg'),
+            imageFilter: ImageFilter.blur(
+                sigmaX: sigmaX, sigmaY: sigmaY, tileMode: TileMode.mirror)),
+        Row(children: [
+          Text('SigmaX'),
+          Slider(
+              max: 20,
+              value: sigmaX,
+              onChanged: (val) {
+                setState(() {
+                  sigmaX = val;
+                });
+              }),
+        ]),
+        Row(
+          children: [
+            Text('SigmaY'),
+            Slider(
+                max: 20,
+                value: sigmaY,
+                onChanged: (val) {
+                  setState(() {
+                    sigmaY = val;
+                  });
+                })
+          ],
+        )
+        // const Divider(),
+        // ...controlWidgets()
       ]),
     );
   }
 }
+//   List<Widget> controlWidgets() {
+//     return [
+//       Row(children: [
+//         Text('SigmaX'),
+//         Slider(
+//             max: 20,
+//             value: sigmaX,
+//             onChanged: (val) {
+//               setState(() {
+//                 sigmaX = val;
+//               });
+//             }),
+//       ]),
+//       Row(children: [
+//         Text('SigmaY'),
+//         Slider(
+//             max: 20,
+//             value: sigmaY,
+//             onChanged: (val) {
+//               setState(() {
+//                 sigmaY = val;
+//               });
+//             })
+//       ])
+//     ];
+//   }
+// }
