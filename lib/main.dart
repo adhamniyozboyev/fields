@@ -1,84 +1,35 @@
 import 'package:flutter/material.dart';
-import 'dart:ui';
 
-void main() {
-  runApp(MaterialApp(
-    home: MyApp(),
-  ));
-}
+/// Flutter code sample for [FractionallySizedBox].
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+void main() => runApp(const FractionallySizedBoxApp());
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
+class FractionallySizedBoxApp extends StatelessWidget {
+  const FractionallySizedBoxApp({super.key});
 
-class _MyAppState extends State<MyApp> {
-  double sigmaX = 0, sigmaY = 0;
-  double rotZ = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(children: [
-        ImageFiltered(
-            child: Image.asset('images/friends.jpg'),
-            imageFilter: ImageFilter.blur(
-                sigmaX: sigmaX, sigmaY: sigmaY, tileMode: TileMode.mirror)),
-        Row(children: [
-          Text('SigmaX'),
-          Slider(
-              max: 20,
-              value: sigmaX,
-              onChanged: (val) {
-                setState(() {
-                  sigmaX = val;
-                });
-              }),
-        ]),
-        Row(
-          children: [
-            Text('SigmaY'),
-            Slider(
-                max: 20,
-                value: sigmaY,
-                onChanged: (val) {
-                  setState(() {
-                    sigmaY = val;
-                  });
-                })
-          ],
-        )
-        // const Divider(),
-        // ...controlWidgets()
-      ]),
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text('FractionallySizedBox Sample')),
+        body: const FractionallySizedBoxExample(),
+      ),
     );
   }
 }
-//   List<Widget> controlWidgets() {
-//     return [
-//       Row(children: [
-//         Text('SigmaX'),
-//         Slider(
-//             max: 20,
-//             value: sigmaX,
-//             onChanged: (val) {
-//               setState(() {
-//                 sigmaX = val;
-//               });
-//             }),
-//       ]),
-//       Row(children: [
-//         Text('SigmaY'),
-//         Slider(
-//             max: 20,
-//             value: sigmaY,
-//             onChanged: (val) {
-//               setState(() {
-//                 sigmaY = val;
-//               });
-//             })
-//       ])
-//     ];
-//   }
-// }
+
+class FractionallySizedBoxExample extends StatelessWidget {
+  const FractionallySizedBoxExample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox.expand(
+      child: FractionallySizedBox(
+        widthFactor: 0.5,
+        heightFactor: 0.5,
+        alignment: FractionalOffset.bottomRight,
+        child: Container(color: Colors.red,height: 100,width: 100,)
+      ),
+    );
+  }
+}
